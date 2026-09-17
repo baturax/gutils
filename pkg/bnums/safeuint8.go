@@ -1,4 +1,4 @@
-package nums
+package bnums
 
 func SafeUint8(val int) uint8 {
 	if val > 255 {

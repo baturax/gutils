@@ -1,4 +1,4 @@
-package nums
+package bnums
 
 func SafeUint16(val int) uint16 {
 	if val > 65535 {

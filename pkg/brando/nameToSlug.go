@@ -1,4 +1,4 @@
-package rando
+package brando
 
 import "strings"
 
