@@ -8,5 +8,6 @@ import (
 func randomString() string {
 	bytes := make([]byte, 2)
 	_, _ = rand.Read(bytes)
+
 	return hex.EncodeToString(bytes)
 }

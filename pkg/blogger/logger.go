@@ -14,7 +14,10 @@ func NewHandler() *SBaiHandler {
 	}
 }
 
-func (h *SBaiHandler) Handle(context context.Context, record slog.Record) error {
+func (h *SBaiHandler) Handle(
+	context context.Context,
+	record slog.Record,
+) error {
 	var color, emoji string
 
 	switch record.Level {
@@ -35,7 +38,7 @@ func (h *SBaiHandler) Handle(context context.Context, record slog.Record) error 
 	h.mutex.Lock()
 	defer h.mutex.Unlock()
 
-	fmt.Fprintf(
+	_, _ = fmt.Fprintf(
 		os.Stdout,
 		"%s[%s] %s [%s]\t%s%s\t",
 		color,
@@ -47,7 +50,7 @@ func (h *SBaiHandler) Handle(context context.Context, record slog.Record) error 
 	)
 
 	record.Attrs(func(attr slog.Attr) bool {
-		fmt.Fprintf(
+		_, _ = fmt.Fprintf(
 			os.Stdout,
 			" %s%s=%v%s",
 			cGreen,
@@ -59,7 +62,7 @@ func (h *SBaiHandler) Handle(context context.Context, record slog.Record) error 
 		return true
 	})
 
-	fmt.Fprintln(os.Stdout)
+	_, _ = fmt.Fprintln(os.Stdout)
 
 	return nil
 }
@@ -67,11 +70,13 @@ func (h *SBaiHandler) Handle(context context.Context, record slog.Record) error 
 func (h *SBaiHandler) Enabled(context context.Context, level slog.Level) bool {
 	return true
 }
+
 func (h *SBaiHandler) WithAttrs(attrs []slog.Attr) slog.Handler {
 	return &SBaiHandler{
 		mutex: h.mutex,
 	}
 }
+
 func (h *SBaiHandler) WithGroup(name string) slog.Handler {
 	return &SBaiHandler{
 		mutex: h.mutex,
